@@ -41,6 +41,7 @@ class myThread extends Thread{
 			System.out.println("server response to "+num+"-"+clientWord);
 			
 			writeBuffer.clear();
+			
 
 			writeBuffer.put(("good-"+num).getBytes());
 			writeBuffer.flip();
@@ -54,6 +55,6 @@ class myThread extends Thread{
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 }

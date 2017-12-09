@@ -12,6 +12,7 @@ public class WebClient {
 	public static void main(String[] args) {
 		try {
 			SocketChannel client=SocketChannel.open();
+			client.configureBlocking(false);
 			client.connect(new InetSocketAddress("127.0.0.1", 8888));
 			ByteBuffer writeBuffer=ByteBuffer.allocate(128);
 			writeBuffer.put("hello world!".getBytes());

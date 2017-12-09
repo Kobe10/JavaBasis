@@ -44,7 +44,6 @@ public class Processor {
 		selector.wakeup();
 	}
 	
-	
 	private void process() {
 		pool.execute(()->{
 			while(true) {

@@ -9,6 +9,8 @@ import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
@@ -45,14 +47,13 @@ public class BasicServer {
 						}
 					}
 				}catch(IOException e) {
+					reader.close();
+					writer.close();
+					client.close();
 					System.out.println("¶Ï¿ªÁ¬½Ó");
 				}
-				reader.close();
-				writer.close();
-				client.close();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
 		}
