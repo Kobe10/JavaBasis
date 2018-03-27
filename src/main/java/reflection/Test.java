@@ -19,7 +19,7 @@ public class Test {
 		return result;
 	}
 	/**
-	 * ¼ÙÉèÖ»ÓĞÒ»¸ö²ÎÊıparam
+	 * å‡è®¾åªæœ‰ä¸€ä¸ªå‚æ•°param
 	 * @param serviceName
 	 * @param param
 	 * @return
@@ -36,19 +36,19 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		//ÎŞ²ÎÊı¹¹Ôì·½·¨·´Éä
+		//æ— å‚æ•°æ„é€ æ–¹æ³•åå°„
 		ReflectService service=getInstance("reflection.ReflectServiceImpl");
-		service.sayHello("Ğ¡Ã÷");
-		//ÓĞ²ÎÊı¹¹Ôì·½·¨·´Éä
-		ReflectService service2=getInstanceWithConstuctorParam("reflection.ReflectionServiceImpl2", "Ğ¡»¨");
-		service2.sayHello("ÖĞ¹ú");
-		//·´ÉäÖ´ĞĞ·½·¨
+		service.sayHello("å°æ˜");
+		//æœ‰å‚æ•°æ„é€ æ–¹æ³•åå°„
+		ReflectService service2=getInstanceWithConstuctorParam("reflection.ReflectionServiceImpl2", "å°èŠ±");
+		service2.sayHello("ä¸­å›½");
+		//åå°„æ‰§è¡Œæ–¹æ³•
 		System.out.println(service2.getClass());
 		try {
-			//ÓĞ²ÎÊı
+			//æœ‰å‚æ•°
 			Method method=service2.getClass().getMethod("sayToTwo", String.class,String.class);
 			method.invoke(service2, "person1","person2");
-			//ÎŞ²ÎÊı
+			//æ— å‚æ•°
 			Method method2=service2.getClass().getMethod("sayHello");
 			method2.invoke(service2);
 		} catch (Exception e) {

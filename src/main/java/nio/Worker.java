@@ -11,12 +11,12 @@ import java.util.concurrent.Executors;
 
 
 public class Worker implements IWorker {
-	//¿ª10¸ö¶ÁµÄÏß³Ì³Ø
+	//å¼€10ä¸ªè¯»çš„çº¿ç¨‹æ± 
 	public static final ExecutorService pool=Executors.newFixedThreadPool(36);
 
 	@Override
 	public void process(SelectionKey key, Queue<SelectionKey>operateQueue) {
-		//Ö´ÐÐ¶ÁµÄÂß¼­
+		//æ‰§è¡Œè¯»çš„é€»è¾‘
 		pool.submit(()->{ 
 			SocketChannel client=null;
 			try {

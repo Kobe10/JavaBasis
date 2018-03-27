@@ -1,1 +1,6 @@
-/target/
+target/*
+# IntelliJ IDEA project files and directories
+*.iml
+*.ipr
+*.iws
+.idea/

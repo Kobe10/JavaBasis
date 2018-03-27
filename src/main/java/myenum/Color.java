@@ -1,11 +1,11 @@
 package myenum;
 
 public enum Color {
-	RED("ºìÉ«",1),GREEN("ÂÌÉ«",2),BLACK("ºÚÉ«",3);
+	RED("çº¢è‰²",1),GREEN("ç»¿è‰²",2),BLACK("é»‘è‰²",3);
 
 	private String chineseName;
 	private int index;
-	//Ö»ÔÊĞíË½ÓĞ·½·¨
+	//åªå…è®¸ç§æœ‰æ–¹æ³•
 	private Color(String chineseName, int index) {
 		this.chineseName=chineseName;
 		this.index=index;

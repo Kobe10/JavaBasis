@@ -2,19 +2,19 @@ package myenum;
 
 public class SimpleTest {
 	public static void main(String[] args) {
-		//nameºÍordinal
+		//nameå’Œordinal
 		MyEnum test1=MyEnum.HOT;
 		System.out.println(test1);//HOT
 		System.out.println(test1.name());//HOT
 		System.out.println(test1.ordinal());//3
-		//±éÀúËùÓĞµÄÖµ
+		//éå†æ‰€æœ‰çš„å€¼
 		for(MyEnum item:MyEnum.values()) {
 			System.out.printf("name:%s,ordinal:%d\n",item.name(),item.ordinal() );
 		}
-		//Í¨¹ıÃû×ÖÈ¡³öEnum¶ÔÏó
+		//é€šè¿‡åå­—å–å‡ºEnumå¯¹è±¡
 		MyEnum getEnumFromName=MyEnum.valueOf("HOT");
 		System.out.println(getEnumFromName);
-		//Í¨¹ıOrdinalÈ¡³öEnum¶ÔÏó
+		//é€šè¿‡Ordinalå–å‡ºEnumå¯¹è±¡
 		MyEnum[] myEnumArray=MyEnum.class.getEnumConstants();
 		MyEnum getEnumFromOrdinal=myEnumArray[3];
 		System.out.println(getEnumFromOrdinal);

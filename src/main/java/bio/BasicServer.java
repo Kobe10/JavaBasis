@@ -25,7 +25,7 @@ public class BasicServer {
 			serverSocket.bind(new InetSocketAddress("127.0.0.1", 8888));
 			while(true) {
 				Socket client=serverSocket.accept();
-				client.setSoTimeout(1000);//客户端read要在1秒内返回，不然认为是IO异常
+				client.setSoTimeout(1000);//瀹㈡埛绔痳ead瑕佸湪1绉掑唴杩斿洖锛屼笉鐒惰涓烘槸IO寮傚父
 				System.out.println("get connection:"+client);
 				InputStream input=client.getInputStream();
 				BufferedReader reader=new BufferedReader(new InputStreamReader(input));
@@ -34,7 +34,7 @@ public class BasicServer {
 				try {
 					while(true) {
 						String clientWord= reader.readLine();
-						client.sendUrgentData(0);//发送心跳包，如果客户端断开连接，则出现IO异常
+						client.sendUrgentData(0);//鍙戦�佸績璺冲寘锛屽鏋滃鎴风鏂紑杩炴帴锛屽垯鍑虹幇IO寮傚父
 						if(clientWord==null)
 							continue;
 						System.out.println(client.getRemoteSocketAddress()+":"+clientWord);
@@ -50,7 +50,7 @@ public class BasicServer {
 					reader.close();
 					writer.close();
 					client.close();
-					System.out.println("断开连接");
+					System.out.println("鏂紑杩炴帴");
 				}
 			}
 		} catch (IOException e) {

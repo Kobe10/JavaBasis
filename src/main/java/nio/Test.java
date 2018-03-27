@@ -15,9 +15,9 @@ public class Test {
 		writeBuffer.putChar('u');
 		writeBuffer.putChar('u');
 		writeBuffer.flip();
-		System.out.println("Œª÷√"+writeBuffer.position()+"-"+writeBuffer.limit());
+		System.out.println("‰ΩçÁΩÆ"+writeBuffer.position()+"-"+writeBuffer.limit());
 		writeBuffer.flip();
-		System.out.println("Œª÷√"+writeBuffer.position()+"-"+writeBuffer.limit());
+		System.out.println("‰ΩçÁΩÆ"+writeBuffer.position()+"-"+writeBuffer.limit());
 		
 		while(writeBuffer.hasRemaining()) {
 			System.out.println(writeBuffer.getChar());

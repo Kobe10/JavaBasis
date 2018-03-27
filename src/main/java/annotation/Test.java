@@ -8,7 +8,7 @@ public class Test {
 	public static void main(String[] args) throws ClassNotFoundException {
 		// TODO Auto-generated method stub
 		Class<?> clazz=Class.forName("annotation.Student");
-		//ÀàÉÏÊÇ·ñ´æÔÚ×¢½â
+		//ç±»ä¸Šæ˜¯å¦å­˜åœ¨æ³¨è§£
 		if(clazz.isAnnotationPresent(MyAnnotation.class)) {
 			Annotation[] anns=clazz.getAnnotations();
 			for(Annotation ann:anns) {
@@ -16,7 +16,7 @@ public class Test {
 				System.out.printf("name:%s,say:%s,age:%d\n", myAnn.name(),myAnn.say(),myAnn.age());
 			}
 		}
-		  //·½·¨ÉÏÓĞÎŞ×¢½â
+		  //æ–¹æ³•ä¸Šæœ‰æ— æ³¨è§£
 		Method[] methods=clazz.getMethods();
 		for(Method method:methods) {
 			if(method.isAnnotationPresent(MyAnnotation.class)) {

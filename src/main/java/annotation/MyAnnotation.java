@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD,ElementType.TYPE})
-@Inherited//²¢²»ÄÜ´Ó½Ó¿Ú¼Ì³Ğ,·½·¨ÉÏÃæµÄÒ²²»ĞĞ,Ö»ÓĞÀàÉÏµÄ¿ÉÒÔ
+@Inherited//å¹¶ä¸èƒ½ä»æ¥å£ç»§æ‰¿,æ–¹æ³•ä¸Šé¢çš„ä¹Ÿä¸è¡Œ,åªæœ‰ç±»ä¸Šçš„å¯ä»¥
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyAnnotation {
 String name() default "";

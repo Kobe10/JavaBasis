@@ -48,7 +48,7 @@ public class ImageUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("ºÏ³ÉÍ¼Æ¬³É¹¦£¡");
+		System.out.println("åˆæˆå›¾ç‰‡æˆåŠŸï¼");
 	}
 
 }

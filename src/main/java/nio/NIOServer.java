@@ -13,47 +13,47 @@ import java.util.Set;
 public class NIOServer {
 	public static void main(String[] args) {
 		try {
-			//¿ªÆôÒ»¸öserver
+			//å¼€å¯ä¸€ä¸ªserver
 			ServerSocketChannel server = ServerSocketChannel.open();
 			server.bind(new InetSocketAddress("127.0.0.1", 8888));
-			//ÉèÖÃserverµÄacceptÎª·Ç×èÈûÄ£Ê½
+			//è®¾ç½®serverçš„acceptä¸ºéé˜»å¡æ¨¡å¼
 			server.configureBlocking(false);
 			
-			//ÉèÖÃSelector
+			//è®¾ç½®Selector
 			Selector selector=Selector.open();
-			//Îªserver×¢²áselector¸ĞĞËÈ¤µÄÊÂ¼ş
+			//ä¸ºserveræ³¨å†Œselectoræ„Ÿå…´è¶£çš„äº‹ä»¶
 			server.register(selector, SelectionKey.OP_ACCEPT);
 			
-			//×¼±¸ºÃ¶ÁĞ´µÄ»º³åÇø
+			//å‡†å¤‡å¥½è¯»å†™çš„ç¼“å†²åŒº
 			ByteBuffer readBuffer=ByteBuffer.allocate(128);
 			ByteBuffer writeBuffer=ByteBuffer.allocate(128);
 			
 			while(true) {
-				//×èÈûÖ±µ½ÓĞÍ¨µÀ±»Ñ¡Ôñ
+				//é˜»å¡ç›´åˆ°æœ‰é€šé“è¢«é€‰æ‹©
 				selector.select();
 				Set<SelectionKey> keys=selector.selectedKeys();
 				Iterator<SelectionKey>iterator=keys.iterator();
 				while(iterator.hasNext()) {
 					SelectionKey key=iterator.next();
-					//½«µ±Ç°key´ÓselectorµÄÖĞÉ¾³ı,ÕâÑùÔÚÏÂÒ»´ÎÕâ¸ökey¾Í²»»á³öÏÖ
+					//å°†å½“å‰keyä»selectorçš„ä¸­åˆ é™¤,è¿™æ ·åœ¨ä¸‹ä¸€æ¬¡è¿™ä¸ªkeyå°±ä¸ä¼šå‡ºç°
 					iterator.remove();
 					if(key.isAcceptable()) {
 						SocketChannel client=server.accept();
 						System.out.println("accept connection from "+client);
-						//ÉèÖÃclient socket¶Ô¶¼²»×èÈû
+						//è®¾ç½®client socketå¯¹éƒ½ä¸é˜»å¡
 						client.configureBlocking(false);
-						//½«client×¢²áÎª¿É¶Á£¬·ÅÈëselector
+						//å°†clientæ³¨å†Œä¸ºå¯è¯»ï¼Œæ”¾å…¥selector
 						client.register(selector, SelectionKey.OP_READ);
 					}else if(key.isReadable()) {
 						SocketChannel client=(SocketChannel) key.channel();
 						readBuffer.clear();
 						int size=client.read(readBuffer);
 						if(size!=-1) {
-							readBuffer.flip();//²»¿ÉÉÙ
+							readBuffer.flip();//ä¸å¯å°‘
 							String clientWord=new String(readBuffer.array(),0,size);
-							//¸Ä±äkeyÎªĞ´ĞÅºÅ
+							//æ”¹å˜keyä¸ºå†™ä¿¡å·
 							key.interestOps(SelectionKey.OP_WRITE);
-							//¸ù¾İ¿Í»§´«ËÍµÄĞÅÏ¢¸½´ø²»Í¬µÄĞÅÏ¢
+							//æ ¹æ®å®¢æˆ·ä¼ é€çš„ä¿¡æ¯é™„å¸¦ä¸åŒçš„ä¿¡æ¯
 							if("wenqi".equals(clientWord)) {
 								key.attach("welcome admin wenqi!");
 							}else {
@@ -64,7 +64,7 @@ public class NIOServer {
 							key.cancel();
 							client.close();
 						}
-					} else if(key.isWritable()) {//isWritableÓĞÊÇ·ñ×¼±¸ºÃ&SelectionKey¾ö¶¨
+					} else if(key.isWritable()) {//isWritableæœ‰æ˜¯å¦å‡†å¤‡å¥½&SelectionKeyå†³å®š
 						SocketChannel client=(SocketChannel) key.channel();
 						String backword=(String) key.attachment();
 						writeBuffer.clear();
@@ -72,7 +72,7 @@ public class NIOServer {
 						writeBuffer.flip();
 						client.write(writeBuffer);
 						key.interestOps(SelectionKey.OP_READ);
-						//²»ÔÊĞí¶à´Î¶ÁĞ´ÓÃcancel
+						//ä¸å…è®¸å¤šæ¬¡è¯»å†™ç”¨cancel
 						//key.cancel();
 					}
 				}

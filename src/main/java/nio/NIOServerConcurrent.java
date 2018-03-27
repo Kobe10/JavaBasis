@@ -16,43 +16,43 @@ public class NIOServerConcurrent {
 
 	public static void main(String[] args) {
 		try {
-			//¿ªÆôÒ»¸öserver
+			//å¼€å¯ä¸€ä¸ªserver
 			ServerSocketChannel server = ServerSocketChannel.open();
 			server.bind(new InetSocketAddress("127.0.0.1", 8888));
-			//ÉèÖÃserverµÄacceptÎª·Ç×èÈûÄ£Ê½
+			//è®¾ç½®serverçš„acceptä¸ºéé˜»å¡æ¨¡å¼
 			server.configureBlocking(false);
 			
-			//ÉèÖÃSelector
+			//è®¾ç½®Selector
 			Selector selector=Selector.open();
-			//Îªserver×¢²áselector¸ĞĞËÈ¤µÄÊÂ¼ş
+			//ä¸ºserveræ³¨å†Œselectoræ„Ÿå…´è¶£çš„äº‹ä»¶
 			server.register(selector, SelectionKey.OP_ACCEPT);
 			
-			//¶ÁĞ´²Ù×÷´¦ÀíÆ÷
+			//è¯»å†™æ“ä½œå¤„ç†å™¨
 			IWorker readProcessor=new Worker();
 			
-			//½øÈë¶ÁĞ´×´Ì¬µÄ¶ÓÁĞ
+			//è¿›å…¥è¯»å†™çŠ¶æ€çš„é˜Ÿåˆ—
 			Queue<SelectionKey> operateQueue=new LinkedList<>();
 			
 			while(true) {
-				//×èÈûÖ±µ½ÓĞÍ¨µÀ±»Ñ¡Ôñ
+				//é˜»å¡ç›´åˆ°æœ‰é€šé“è¢«é€‰æ‹©
 				selector.select();
 				Set<SelectionKey> keys=selector.selectedKeys();
 				Iterator<SelectionKey>iterator=keys.iterator();
 				while(iterator.hasNext()) {
 					SelectionKey  key=iterator.next();
-					//½«µ±Ç°key´ÓselectorµÄÖĞÉ¾³ı,ÕâÑùÔÚÏÂÒ»´ÎÕâ¸ökey¾Í²»»á³öÏÖ
+					//å°†å½“å‰keyä»selectorçš„ä¸­åˆ é™¤,è¿™æ ·åœ¨ä¸‹ä¸€æ¬¡è¿™ä¸ªkeyå°±ä¸ä¼šå‡ºç°
 					iterator.remove();
 					if(operateQueue.contains(key))
 						continue;
 					if(key.isAcceptable()) {
 						SocketChannel client=server.accept();
 						System.out.println("accept connection from "+client.getRemoteAddress());
-						//ÉèÖÃclient socket¶Ô¶¼²»×èÈû
+						//è®¾ç½®client socketå¯¹éƒ½ä¸é˜»å¡
 						client.configureBlocking(false);
-						//½«client×¢²áÎª¿É¶Á£¬·ÅÈëselector
+						//å°†clientæ³¨å†Œä¸ºå¯è¯»ï¼Œæ”¾å…¥selector
 						client.register(selector, SelectionKey.OP_READ);
 					}else if(key.isReadable()) {
-						//·Ö·¢¸øReadÏß³Ì³Ø´¦Àí(´ÓÄÚºË¿Õ¼ä¿½±´µ½ÓÃ»§¿Õ¼ä)
+						//åˆ†å‘ç»™Readçº¿ç¨‹æ± å¤„ç†(ä»å†…æ ¸ç©ºé—´æ‹·è´åˆ°ç”¨æˆ·ç©ºé—´)
 						operateQueue.offer(key);
 						readProcessor.process(key,operateQueue);
 					} 

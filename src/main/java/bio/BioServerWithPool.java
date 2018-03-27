@@ -30,7 +30,7 @@ public class BioServerWithPool {
 						try {
 							while(true) {
 								String clientWord= reader.readLine();
-								client.sendUrgentData(0);//发送心跳包，如果客户端断开连接，则出现IO异常
+								client.sendUrgentData(0);//鍙戦�佸績璺冲寘锛屽鏋滃鎴风鏂紑杩炴帴锛屽垯鍑虹幇IO寮傚父
 								if(clientWord==null)
 									continue;
 								System.out.println(client.getRemoteSocketAddress()+":"+clientWord);
@@ -43,7 +43,7 @@ public class BioServerWithPool {
 								}
 							}
 						}catch(IOException e) {
-							System.out.println("断开连接");
+							System.out.println("鏂紑杩炴帴");
 						}
 						reader.close();
 						writer.close();

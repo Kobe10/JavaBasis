@@ -19,17 +19,17 @@ public class StreamTest {
 	public static void main(String[] args) {
 		
 		//map
-		//½«ËùÓĞµÄ×ÖÄ¸±äÎª´óĞ´×ÖÄ¸
+		//å°†æ‰€æœ‰çš„å­—æ¯å˜ä¸ºå¤§å†™å­—æ¯
 		Stream<String> stream=Stream.of("abc","def","ghi","jkl","opq");
 		List<String> output=stream.map(String::toUpperCase).collect(Collectors.toList());
 		//output.forEach(System.out::println);
-		//ËùÓĞµÄÊı±ä³ÉÆ½·½
+		//æ‰€æœ‰çš„æ•°å˜æˆå¹³æ–¹
 		List<Integer> nums=Arrays.asList(1,2,3,4,5);
 		List<Integer> squareNums=nums.stream().map(n->n*n).collect(Collectors.toList());
 		//squareNums.forEach(System.out::println);
 		
 		//flatMap
-		//¶à×éstreamºÏ²¢,Ìî³äÁ÷
+		//å¤šç»„streamåˆå¹¶,å¡«å……æµ
 		Stream<List<Integer>>input1=Stream.of(Arrays.asList(1,5),Arrays.asList(2,4),Arrays.asList(3));
 		Stream<Integer>outputStream=input1.flatMap(childList->childList.stream());
 		List<Integer>output1=outputStream.map(n->n*n).collect(Collectors.toList());
@@ -41,7 +41,7 @@ public class StreamTest {
 		//Arrays.asList(evens).forEach(System.out::println);
 		//findFirst
 		Optional<Integer>first=Stream.of(sixNums).findFirst();
-		//first.ifPresent(System.out::println);//Èç¹û²»ÎªnullÔòÖ´ĞĞ
+		//first.ifPresent(System.out::println);//å¦‚æœä¸ä¸ºnullåˆ™æ‰§è¡Œ
 		
 		//reduce
 		String concat=Stream.of("A","B","C").reduce("start-", String::concat);
@@ -128,9 +128,9 @@ public class StreamTest {
 		
 		//parting
 		Map<Boolean, List<Person>>groups2=persons3.stream().collect(Collectors.partitioningBy(p->p.getAge()<18));
-		System.out.println("Î´³ÉÄêÈË£º");
+		System.out.println("æœªæˆå¹´äººï¼š");
 		groups2.get(true).forEach(p->System.out.println(p.getName()+":"+p.getAge()));
-		System.out.println("³ÉÄêÈË£º");
+		System.out.println("æˆå¹´äººï¼š");
 		groups2.get(false).forEach(p->System.out.println(p.getName()+":"+p.getAge()));
 		
 		

@@ -9,16 +9,16 @@ public class ReflectionServiceImpl2 implements ReflectService {
 
 	@Override
 	public void sayHello(String name) {
-		System.out.println(name+",ÎÒÊÇµÚ¶ş¸öserviceÀà");
+		System.out.println(name+",æˆ‘æ˜¯ç¬¬äºŒä¸ªserviceç±»");
 	}
 	
 	public void sayHello() {
-		System.out.println("Ä¬ÈÏÓÃ»§£º"+this.name+",ÎÒÊÇµÚ¶ş¸öserviceÀà");
+		System.out.println("é»˜è®¤ç”¨æˆ·ï¼š"+this.name+",æˆ‘æ˜¯ç¬¬äºŒä¸ªserviceç±»");
 	}
 	
 	public void sayToTwo(String p1,String p2) {
-		System.out.println(p1+" hello,ÎÒÊÇµÚ¶ş¸öserviceÀà");
-		System.out.println(p2+" hello,ÎÒÊÇµÚ¶ş¸öserviceÀà");
+		System.out.println(p1+" hello,æˆ‘æ˜¯ç¬¬äºŒä¸ªserviceç±»");
+		System.out.println(p2+" hello,æˆ‘æ˜¯ç¬¬äºŒä¸ªserviceç±»");
 	}
 
 }
