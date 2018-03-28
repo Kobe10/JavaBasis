@@ -19,4 +19,5 @@ public class ThreadTask {
         }
         return String.format("%s: get result success", taskName);
     }
+
 }
