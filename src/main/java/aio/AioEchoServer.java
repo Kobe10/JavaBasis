@@ -9,6 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
+import java.util.Scanner;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +26,7 @@ public class AioEchoServer {
         }
     }
 
+
     public void startServer() {
         //attachment参数可以被CompletionHandler接收
 
@@ -35,18 +37,21 @@ public class AioEchoServer {
                 try {
                     System.out.println("attachment: " + attachment);
                     ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                    //非阻塞读取，需要使用get等待读取结果返回
-                    client.read(byteBuffer).get(10, TimeUnit.SECONDS);
+                    //这里是非阻塞读取，需要使用get等待客户端返回结果
+                    int readResult = client.read(byteBuffer).get();
+                    System.out.println("读入数据量：" + readResult);
                     byteBuffer.flip();
-                    System.out.println(new String(byteBuffer.array()));
-                    Future<Integer> future = client.write(byteBuffer);
-                    int flag = 0;
-                    flag = future.get();
-                    if (flag > 0) {
-                        System.out.println(client.getRemoteAddress() + ": " + "response success! flag: "+flag);
+                    System.out.println("Get from client:" + (new String(byteBuffer.array())));
+                    int writeResult = client.write(byteBuffer).get();
+                    if (writeResult > 0) {
+                        System.out.println(client.getRemoteAddress() + ": " + "response success! write length: " + writeResult);
+                    } else {
+                        System.out.println("write length <0");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    server.accept(null,this);
                 }
             }
 
@@ -60,12 +65,7 @@ public class AioEchoServer {
     public static void main(String[] args) {
         AioEchoServer aioEchoServer = new AioEchoServer();
         aioEchoServer.startServer();
-        while (true) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 }

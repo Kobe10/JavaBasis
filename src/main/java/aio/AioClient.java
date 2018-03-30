@@ -6,6 +6,7 @@ import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -24,16 +25,24 @@ public class AioClient {
                     System.out.println(attachment);
                     try {
                         ByteBuffer byteBuffer = ByteBuffer.wrap("hello".getBytes());
-                        byteBuffer.flip();
+                        //wrap后不用byteBuffer.flip()，此时position=0，limit是之前position的位置
+                        //read后的postion是写入的界限，limit=capbility,flip做的事情:limit=poition,position=0.
                         //须阻塞写入
-                        Future<Integer> writeFuture = client.write(byteBuffer);
-                        System.out.println(writeFuture.get());
+                        int writeResult = client.write(byteBuffer).get();
+                        System.out.println("写入Byte数：" + writeResult);
                         //须阻塞读取
-                        client.read(byteBuffer).get(10, TimeUnit.SECONDS);
+                        byteBuffer.clear();
+                        int readResult = client.read(byteBuffer).get();
                         byteBuffer.flip();
-                        System.out.println(new String(byteBuffer.array()));
+                        System.out.println("server response: " + (new String(byteBuffer.array())));
                     } catch (Exception e) {
                         e.printStackTrace();
+                    } finally {
+                        try {
+                            client.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
@@ -45,6 +54,8 @@ public class AioClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Scanner scanner=new Scanner(System.in);
+        scanner.nextLine();
 
     }
 }
